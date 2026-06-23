@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.mapper.OrderMapper">
+    <resultMap id="OrderResultMap" type="com.community.entity.Order">
+        <id property="id" column="id"/>
+        <result property="orderNo" column="order_no"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="userPhone" column="user_phone"/>
+        <result property="totalAmount" column="total_amount"/>
+        <result property="pointsDeductionAmount" column="points_deduction_amount"/>
+        <result property="actualAmount" column="actual_amount"/>
+        <result property="usedPoints" column="used_points"/>
+        <result property="address" column="address"/>
+        <result property="receiver" column="receiver"/>
+        <result property="receiverPhone" column="receiver_phone"/>
+        <result property="remark" column="remark"/>
+        <result property="status" column="status"/>
+        <result property="payTime" column="pay_time"/>
+        <result property="completeTime" column="complete_time"/>
+        <result property="cancelTime" column="cancel_time"/>
+        <result property="cancelReason" column="cancel_reason"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <select id="selectByOrderNo" resultMap="OrderResultMap">
+        SELECT * FROM t_order WHERE order_no = #{orderNo} AND deleted = 0
+    </select>
+
+    <select id="generateOrderNo" resultType="string">
+        SELECT CONCAT('TG', DATE_FORMAT(NOW(),'%Y%m%d%H%i%s'), LPAD(FLOOR(RAND()*10000),4,'0')) AS orderNo
+    </select>
+
+    <select id="selectByUserId" resultMap="OrderResultMap">
+        SELECT * FROM t_order
+        WHERE user_id = #{userId}
+        <if test="status != null">
+            AND status = #{status}
+        </if>
+        ORDER BY create_time DESC
+    </select>
+</mapper>

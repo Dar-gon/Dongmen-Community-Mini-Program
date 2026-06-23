@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.mapper.PetitionLogMapper">
+    <resultMap id="BaseResultMap" type="com.community.entity.PetitionLog">
+        <id property="id" column="id"/>
+        <result property="petitionId" column="petition_id"/>
+        <result property="action" column="action"/>
+        <result property="operatorId" column="operator_id"/>
+        <result property="operatorName" column="operator_name"/>
+        <result property="content" column="content"/>
+        <result property="createTime" column="create_time"/>
+    </resultMap>
+
+    <select id="selectByPetitionId" resultMap="BaseResultMap">
+        SELECT * FROM t_petition_log WHERE petition_id = #{petitionId} ORDER BY create_time ASC
+    </select>
+</mapper>

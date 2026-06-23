@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.mapper.PointsAccountMapper">
+    <resultMap id="PointsAccountResultMap" type="com.community.entity.PointsAccount">
+        <id property="userId" column="user_id"/>
+        <result property="balance" column="balance"/>
+        <result property="totalEarned" column="total_earned"/>
+        <result property="totalSpent" column="total_spent"/>
+        <result property="version" column="version"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <update id="addBalance">
+        UPDATE t_points_account
+        SET balance = balance + #{amount},
+            total_earned = total_earned + #{amount}
+        WHERE user_id = #{userId}
+    </update>
+
+    <update id="deductBalance">
+        UPDATE t_points_account
+        SET balance = balance - #{amount},
+            total_spent = total_spent + #{amount}
+        WHERE user_id = #{userId} AND balance >= #{amount}
+    </update>
+</mapper>

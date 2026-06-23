@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.mapper.ExchangeGoodsMapper">
+    <resultMap id="ExchangeGoodsResultMap" type="com.community.entity.ExchangeGoods">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="coverImg" column="cover_img"/>
+        <result property="integralPrice" column="integral_price"/>
+        <result property="stock" column="stock"/>
+        <result property="exchangeCount" column="exchange_count"/>
+        <result property="category" column="category"/>
+        <result property="status" column="status"/>
+        <result property="sort" column="sort"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <update id="updateStock">
+        UPDATE t_exchange_goods
+        SET stock = stock - #{quantity}
+        WHERE id = #{id} AND stock >= #{quantity}
+    </update>
+
+    <update id="incrementExchangeCount">
+        UPDATE t_exchange_goods
+        SET exchange_count = exchange_count + 1
+        WHERE id = #{id}
+    </update>
+</mapper>

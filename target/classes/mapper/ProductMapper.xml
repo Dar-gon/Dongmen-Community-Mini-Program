@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.mapper.ProductMapper">
+    <resultMap id="ProductResultMap" type="com.community.entity.Product">
+        <id property="id" column="id"/>
+        <result property="name" column="name"/>
+        <result property="description" column="description"/>
+        <result property="coverImg" column="cover_img"/>
+        <result property="images" column="images"/>
+        <result property="price" column="price"/>
+        <result property="originalPrice" column="original_price"/>
+        <result property="unit" column="unit"/>
+        <result property="stock" column="stock"/>
+        <result property="sales" column="sales"/>
+        <result property="pointsDeduction" column="points_deduction"/>
+        <result property="category" column="category"/>
+        <result property="merchantId" column="merchant_id"/>
+        <result property="merchantName" column="merchant_name"/>
+        <result property="merchantStatus" column="merchant_status"/>
+        <result property="status" column="status"/>
+        <result property="sort" column="sort"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+        <result property="deleted" column="deleted"/>
+    </resultMap>
+
+    <update id="updateStock">
+        UPDATE t_product
+        SET stock = stock - #{quantity}
+        WHERE id = #{id} AND stock >= #{quantity}
+    </update>
+
+    <update id="increaseSales">
+        UPDATE t_product
+        SET sales = sales + #{quantity}
+        WHERE id = #{id}
+    </update>
+</mapper>

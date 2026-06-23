@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.community.mapper.ExchangeRecordMapper">
+    <resultMap id="ExchangeRecordResultMap" type="com.community.entity.ExchangeRecord">
+        <id property="id" column="id"/>
+        <result property="userId" column="user_id"/>
+        <result property="userName" column="user_name"/>
+        <result property="goodsId" column="goods_id"/>
+        <result property="goodsName" column="goods_name"/>
+        <result property="usedPoints" column="used_points"/>
+        <result property="status" column="status"/>
+        <result property="receiveTime" column="receive_time"/>
+        <result property="receiver" column="receiver"/>
+        <result property="createTime" column="create_time"/>
+        <result property="updateTime" column="update_time"/>
+    </resultMap>
+
+    <select id="selectByUserId" resultMap="ExchangeRecordResultMap">
+        SELECT * FROM t_exchange_record WHERE user_id = #{userId} ORDER BY create_time DESC
+    </select>
+</mapper>
